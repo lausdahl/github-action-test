@@ -27,6 +27,11 @@ SET(BUILD_EXAMPLES OFF CACHE BOOL "Build examples")
 SET(BUILD_DOC OFF CACHE BOOL "Build documentation")
 SET(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries")
 
+
+set(ENABLE_BZIP2 OFF CACHE BOOL "Enable use of BZip2" )
+set(ENABLE_LZMA OFF CACHE BOOL "Enable use of LZMA" )
+
+
 FetchContent_Declare(libzip
         GIT_REPOSITORY https://github.com/nih-at/libzip.git
         GIT_TAG  v1.7.3
