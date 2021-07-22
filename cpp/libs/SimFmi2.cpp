@@ -36,7 +36,7 @@ FMI2 load_FMI2(const char *guid, const char *path) {
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
-    std::string fmuDest = std::filesystem::path(fs::temp_directory_path());
+    std::string fmuDest{ std::filesystem::path(fs::temp_directory_path()).u8string()};
 
     std::string id=guid;
     std::replace(id.begin(),id.end(),'{','_');
