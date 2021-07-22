@@ -83,7 +83,7 @@ FMI2 load_FMI2(const char *guid, const char *path) {
     bool modelLibFound=false;
     for (const auto &entry : fs::directory_iterator(library_base.c_str())) {
         //std::cout << entry.path() << std::endl;
-        fmu->library_path = entry.path();
+        fmu->library_path = entry.path().u8string();
         if(hasEnding(fmu->library_path,extension)){
             modelLibFound=true;
             break;
