@@ -21,7 +21,7 @@ FetchContent_Populate(intocpsfmi)
 set(intocpsfmi-src "intocpsfmi-src")
 
 
-SET(BUILD_TOOLS OFF CACHE BOOL "Build tools in the src directory (zipcmp, zipmerge, ziptool)")
+SET(BUILD_TOOLS ON CACHE BOOL "Build tools in the src directory (zipcmp, zipmerge, ziptool)")
 SET(BUILD_REGRESS OFF CACHE BOOL "Build regression tests")
 SET(BUILD_EXAMPLES OFF CACHE BOOL "Build examples")
 SET(BUILD_DOC OFF CACHE BOOL "Build documentation")
