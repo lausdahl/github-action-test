@@ -50,6 +50,12 @@ FMI2 load_FMI2(const char *guid, const char *path) {
 
     unzip(path, fmuDest.u8string().c_str());
 
+
+ for (const auto &entry : fs::directory_iterator(fmuDest)) {
+        std::cout << entry.path() << std::endl;
+    }
+
+
     auto fmu = new Fmi2Impl();
     fmu->resource_path = (fmuDest / "resources").u8string();
 //    fmu->resource_path.append();
