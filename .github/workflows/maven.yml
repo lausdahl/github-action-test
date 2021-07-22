@@ -33,6 +33,10 @@ jobs:
       - name: Compile  
         run: make -Cbuild -j9  install
 
+      - name: output dependencies
+        run: ldd target/bin/sim.exe
+
+
       - name: upload executable
         uses: actions/upload-artifact@v2
         if: ${{ always()}}
