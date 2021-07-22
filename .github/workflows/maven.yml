@@ -46,9 +46,14 @@ jobs:
         #        shell: msys2 {0}
         run: cmake --version
 
+
+      - name: gcc        #        if: matrix.os == 'windows-latest'
+        #        shell: msys2 {0}
+        run: gcc --version
+
       - name: cmake        #        if: matrix.os == 'windows-latest'
         #        shell: msys2 {0}
-        run: cmake -Bbuild -S cpp
+        run: cmake -G"MinGW Makefiles" -Bbuild -S cpp
 
 
       - name: Compile        #        if: matrix.os == 'windows-latest'
