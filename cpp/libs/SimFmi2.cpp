@@ -95,6 +95,14 @@ FMI2 load_FMI2(const char *guid, const char *path) {
         std::cerr  << "FMU does not contain any suitable library. Cannot load it. " << path << std::endl;
         return nullptr;
     }
+
+
+    if (!std::filesystem::exists(fmu->library_path.c_str())) {
+        std::cerr << "Library does not exist. " << fmu->library_path << std::endl;
+        return nullptr;
+    }
+
+
     std::cout << "Loading library: "<< fmu->library_path << std::endl;
 
     fmu->guid = guid;
