@@ -36,6 +36,11 @@ jobs:
       - name: output dependencies
         run: ldd target/bin/sim.exe
 
+      - name: check sha1      
+        run: target/bin/sim.exe -sha1
+
+      - name: run simulation       
+        run: target/bin/sim.exe
 
       - name: upload executable
         uses: actions/upload-artifact@v2
@@ -48,8 +53,6 @@ jobs:
             C:/Users/RUNNER~1/AppData/Local/Temp/**/binaries/*
           retention-days: 1
 
-      - name: check sha1      
-        run: target/bin/sim.exe -sha1
-
-      - name: run simulation       
-        run: target/bin/sim.exe
+      - name: run simulation   
+        if: ${{ always()}}    
+        run: cat C:\Users\RUNNER~1\AppData\Local\Temp\_8c4e810f-3df3-4a00-8276-176fa3c9f000_\modelDescription.xml
