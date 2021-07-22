@@ -48,7 +48,7 @@ FMI2 load_FMI2(const char *guid, const char *path) {
 
     std::cout << "Unpacked fmu " << path << " to " << fmuDest << std::endl;
 
-    unzip(path, fmuDest.u8string());
+    unzip(path, fmuDest.u8string().c_str());
 
     auto fmu = new Fmi2Impl();
     fmu->resource_path = fmuDest.u8string();
