@@ -66,7 +66,7 @@ include_directories(${PROJECT_SOURCE_DIR}
     ${PROJECT_SOURCE_DIR}/libs
     ${CMAKE_BINARY_DIR}/rapidjson/include)
 
-
+set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 add_executable(sim
     ${intocpsfmi-src}/jnifmuapi/src/main/native/src/sim_support.c
     libs/DataWriter.cpp
