@@ -51,41 +51,41 @@ FMI2 load_FMI2(const char *guid, const char *path) {
     unzip(path, fmuDest.u8string().c_str());
 
     auto fmu = new Fmi2Impl();
-    fmu->resource_path = fmuDest.u8string();
-    fmu->resource_path.append("/resources");
-    std::string library_base = fmuDest.u8string();
+    fmu->resource_path = (fmuDest / "resources").u8string();
+//    fmu->resource_path.append();
+    auto library_base = fmuDest / "binaries";
 
-    library_base.append("/binaries");
+//    library_base.append("/binaries");
 
-    #ifdef _WIN32
-        library_base.append("/win64/");
-    #elif __APPLE__
-        #if TARGET_OS_MAC
-            library_base.append("/darwin64/");
-        #else
-            throwException(env, "Unsupported platform");
-        #endif
-    #elif __linux
-        library_base.append("/linux64/");
-    #endif
+#ifdef _WIN32
+    library_base=library_base/"win64";
+#elif __APPLE__
+#if TARGET_OS_MAC
+    library_base = library_base / "darwin64";
+#else
+    throwException(env, "Unsupported platform");
+#endif
+#elif __linux
+    library_base=library_base/"linux64";
+#endif
 
-    const char* extension =".dylib";
-    #ifdef _WIN32
-            extension =".dll";
-        #elif __APPLE__
-            extension =".dylib";
-        #elif __linux
-            extension =".so";
-    #endif
+    const char *extension = ".dylib";
+#ifdef _WIN32
+    extension =".dll";
+#elif __APPLE__
+    extension = ".dylib";
+#elif __linux
+    extension =".so";
+#endif
 
 
     //  std::string firstFile;
-    bool modelLibFound=false;
-    for (const auto &entry : fs::directory_iterator(library_base.c_str())) {
+    bool modelLibFound = false;
+    for (const auto &entry : fs::directory_iterator(library_base)) {
         //std::cout << entry.path() << std::endl;
         fmu->library_path = entry.path().u8string();
-        if(hasEnding(fmu->library_path,extension)){
-            modelLibFound=true;
+        if (hasEnding(fmu->library_path, extension)) {
+            modelLibFound = true;
             break;
         }
     }
