@@ -36,7 +36,7 @@ FMI2 load_FMI2(const char *guid, const char *path) {
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
-    std::string fmuDest{ std::filesystem::path(fs::temp_directory_path()).u8string()};
+    auto fmuDest= std::filesystem::path(fs::temp_directory_path());
 
     std::string id=guid;
     std::replace(id.begin(),id.end(),'{','_');
@@ -48,12 +48,12 @@ FMI2 load_FMI2(const char *guid, const char *path) {
 
     std::cout << "Unpacked fmu " << path << " to " << fmuDest << std::endl;
 
-    unzip(path, fmuDest.c_str());
+    unzip(path, fmuDest.u8string());
 
     auto fmu = new Fmi2Impl();
-    fmu->resource_path = fmuDest;
+    fmu->resource_path = fmuDest.u8string();
     fmu->resource_path.append("/resources");
-    std::string library_base = fmuDest;
+    std::string library_base = fmuDest.u8string();
 
     library_base.append("/binaries");
 
