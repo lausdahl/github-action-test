@@ -83,8 +83,8 @@ FMI2 load_FMI2(const char *guid, const char *path) {
     bool modelLibFound = false;
     for (const auto &entry : fs::directory_iterator(library_base)) {
         //std::cout << entry.path() << std::endl;
-        fmu->library_path = entry.path().u8string();
-        if (hasEnding(fmu->library_path, extension)) {
+        fmu->library_path = entry.path();
+        if (hasEnding(fmu->library_path.u8string(), extension)) {
             modelLibFound = true;
             break;
         }
@@ -97,7 +97,7 @@ FMI2 load_FMI2(const char *guid, const char *path) {
     }
 
 
-    if (!std::filesystem::exists(fmu->library_path.c_str())) {
+    if (!std::filesystem::exists(fmu->library_path.u8string().c_str())) {
         std::cerr << "Library does not exist. " << fmu->library_path << std::endl;
         return nullptr;
     }
