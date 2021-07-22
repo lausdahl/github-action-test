@@ -42,6 +42,10 @@ jobs:
 #      - name: Maven Build
 #        run: mvn -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn" -B package --file pom.xml -DskipTests
 
+      - name: Put MSYS2_MinGW64 on PATH
+         # there is not yet an environment variable for this path from msys2/setup-msys2
+        run: echo "C:\msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
       - name: cmake version        #        if: matrix.os == 'windows-latest'
         #        shell: msys2 {0}
         run: cmake --version
