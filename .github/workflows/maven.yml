@@ -46,20 +46,23 @@ jobs:
          # there is not yet an environment variable for this path from msys2/setup-msys2
         run: echo "C:\msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      - name: cmake version        #        if: matrix.os == 'windows-latest'
-        #        shell: msys2 {0}
+      - name: cmake version 
         run: cmake --version
 
 
-      - name: gcc        #        if: matrix.os == 'windows-latest'
-        #        shell: msys2 {0}
+      - name: gcc 
         run: gcc --version
 
-      - name: cmake        #        if: matrix.os == 'windows-latest'
-        #        shell: msys2 {0}
+      - name: cmake       
         run: cmake -G"MSYS Makefiles" -Bbuild -S cpp
 
 
-      - name: Compile        #        if: matrix.os == 'windows-latest'
-        #        shell: msys2 {0}
-        run: make -Cbuild install
+      - name: Compile  
+        run: make -Cbuild -j9  install
+
+      - name: check sha1      
+        run: C:/Program Files (x86)/sim/bin/sim.exe -sha1
+
+
+      - name: run simulation       
+        run: C:/Program Files (x86)/sim/bin/sim.exe

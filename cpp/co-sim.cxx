@@ -14,8 +14,8 @@ void simulate(const char* __runtimeConfigPath)
 	DataWriter dataWriter = load_DataWriter(__runtimeConfigPath);
 	Logger logger = load_Logger();
 	Math math = load_Math();
-	FMI2 tankcontroller = load_FMI2("{8c4e810f-3df3-4a00-8276-176fa3c9f000}", "src/test/resources/watertankcontroller-c.fmu");
-	FMI2 SingleWatertank = load_FMI2("{cfc65592-9ece-4563-9705-1581b6e7071c}", "src/test/resources/singlewatertank-20sim.fmu");
+	FMI2 tankcontroller = load_FMI2("{8c4e810f-3df3-4a00-8276-176fa3c9f000}", "watertankcontroller-c.fmu");
+	FMI2 SingleWatertank = load_FMI2("{cfc65592-9ece-4563-9705-1581b6e7071c}", "singlewatertank-20sim.fmu");
 	FMI2Component crtlInstance = tankcontroller->instantiate("crtlInstance", false, false);
 	FMI2Component wtInstance = SingleWatertank->instantiate("wtInstance", false, false);
 	int global_execution_continue = true;
