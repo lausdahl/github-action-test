@@ -54,15 +54,15 @@ jobs:
         run: gcc --version
 
       - name: cmake       
-        run: cmake -G"MSYS Makefiles" -Bbuild -S cpp
+        run: cmake -G"MSYS Makefiles" -DCMAKE_INSTALL_PREFIX=%CD% -Bbuild -S cpp
 
 
       - name: Compile  
         run: make -Cbuild -j9  install
 
       - name: check sha1      
-        run: "C:/Program Files (x86)/sim/bin/sim.exe -sha1"
+        run: bin/sim.exe -sha1
 
 
       - name: run simulation       
-        run: "C:/Program Files (x86)/sim/bin/sim.exe"
+        run: bin/sim.exe
