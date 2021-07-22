@@ -4,10 +4,6 @@
 name: actionTest
 
 on: [ workflow_dispatch, push, pull_request ]
-env:
-  JAVA_VERSION: 11.0.3
-  SERVER_ID: snapshots
-  PYTHON_VERSION: '3.x'
 
 jobs:
   build:
@@ -19,28 +15,7 @@ jobs:
         os: [ windows-latest ] #ubuntu-latest,, macos-latest
 
     steps:
-      # https://github.com/msys2/setup-msys2
-      #      - uses: msys2/setup-msys2@v2
-      #        if: matrix.os == 'windows-latest'
-      #        name: MSYS
-      #        with:
-      #          path-type: inherit
-      #          msystem: MINGW64
-      #          install: >-
-      #            mingw-w64-x86_64-toolchain
-      #            mingw-w64-x86_64-cmake
-      #            mingw-w64-x86_64-ninja
-
-#      - name: Set up Java
-#        uses: actions/setup-java@v1.4.3
-#        with:
-#          java-version: ${{ env.JAVA_VERSION }}
-
-
       - uses: actions/checkout@v2
-
-#      - name: Maven Build
-#        run: mvn -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn" -B package --file pom.xml -DskipTests
 
       - name: Put MSYS2_MinGW64 on PATH
          # there is not yet an environment variable for this path from msys2/setup-msys2
@@ -49,20 +24,27 @@ jobs:
       - name: cmake version 
         run: cmake --version
 
-
       - name: gcc 
         run: gcc --version
 
       - name: cmake       
         run: cmake -G"MSYS Makefiles" -DCMAKE_INSTALL_PREFIX=target -Bbuild -S cpp
 
-
       - name: Compile  
         run: make -Cbuild -j9  install
 
+      - name: upload executable
+        uses: actions/upload-artifact@v2
+        if: ${{ failure()}}
+        with:
+          name: output
+          path: |
+            **/*.fmu
+            target/**/*
+          retention-days: 1
+
       - name: check sha1      
         run: target/bin/sim.exe -sha1
-
 
       - name: run simulation       
         run: target/bin/sim.exe
