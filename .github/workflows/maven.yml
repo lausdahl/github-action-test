@@ -61,7 +61,7 @@ jobs:
         run: make -Cbuild -j9  install
 
       - name: check sha1      
-        run: "C:/Program Files (x86)/sim/bin/sim.exe" -sha1
+        run: "C:/Program Files (x86)/sim/bin/sim.exe -sha1"
 
 
       - name: run simulation       
